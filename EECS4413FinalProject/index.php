@@ -35,8 +35,9 @@ if (!isset($_GET['search']) || $_GET['search'] == '') {
     <!-- Content -->
     <section>
         <?php foreach ($data as $item) : ?>
-            <a href="itempage.php?id=<?php echo $item['ItemID'] ?>">
-                <!-- <div>
+            <div class="w-75 d-block mx-auto">
+                <a href="itempage.php?id=<?php echo $item['ItemID'] ?>">
+                    <!-- <div>
                     <hr>
                     <img src="<?php echo $item['ImageURL'] ?>" alt="Product">
                     <div><?php echo $item['Name'] ?></div>
@@ -45,25 +46,27 @@ if (!isset($_GET['search']) || $_GET['search'] == '') {
                     <div><?php echo $item['Brand'] ?></div>
                     <hr>
                 </div> -->
-                <hr style="clear: both; visibility: hidden;">
-                <div class="card mb-3 mx-auto" style="max-width: 80vw; justify-content:center;">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="<?php echo $item['ImageURL'] ?>" class="img-fluid rounded-start" alt="Product">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title"><?php echo $item['Name'] ?></h5>
-                                <h5 class="card-subtitle">Price: $<?php echo $item['Price'] ?></h5>
-                                <p class="card-text"><?php echo $item['Category'] ?></p>
-                                <p class="card-text"><?php echo $item['Brand'] ?></p>
+                    <hr style="clear: both; visibility: hidden;">
+                    <div class="card mb-3 mx-auto">
+                        <div class="row g-0">
+                            <div class="col-md-3">
+                                <img src="<?php echo $item['ImageURL'] ?>" class="rounded-start d-block mx-auto" alt="Product" style="object-fit:cover; height:32vh; width:32vh">
+                                <!--<img src="<?php echo $item['ImageURL'] ?>" class="mx-auto d-block float-right" alt="Product" style="height: 450px; width:100%;"> style="height: 450px; width:100%;" -->
+                            </div>
+                            <div class="col-md-9">
+                                <div class="card-body">
+                                    <h5 class="card-title"><?php echo $item['Name'] ?></h5>
+                                    <h5 class="card-subtitle">Price: $<?php echo $item['Price'] ?></h5>
+                                    <p class="card-text"><?php echo $item['Category'] ?></p>
+                                    <p class="card-text"><?php echo $item['Brand'] ?></p>
 
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <hr style="clear: both; visibility: hidden;">
-            </a>
+                    <hr style="clear: both; visibility: hidden;">
+                </a>
+            </div>
         <?php endforeach; ?>
     </section>
 
