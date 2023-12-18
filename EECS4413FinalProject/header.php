@@ -24,16 +24,32 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item pl-3">
-                    <a class="nav-link active" aria-current="page" href="">HOME</a>
+                    <a class="nav-link active" aria-current="page" href="index.php">HOME</a>
                 </li>
                 <li class="nav-item pl-3">
-                    <a class="nav-link" href="#">MEN</a>
+                    <form action="index.php" method="get" class="dropdown px-3">
+                        <button class="btn btn-default dropdown-toggle " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            CATEGORIES
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                            <li><input type="submit" class="dropdown-item" name="search" value="Tops"></li>
+                            <li><input type="submit" class="dropdown-item" name="search" value="Bottoms"></li>
+                            <li><input type="submit" class="dropdown-item" name="search" value="Accessories"></li>
+                        </ul>
+                    </form>  
+
                 </li>
                 <li class="nav-item pl-3">
-                    <a class="nav-link" href="#">WOMEN</a>
-                </li>
-                <li class="nav-item pl-3">
-                    <a class="nav-link" href="#">KIDS</a>
+                <form action="index.php" method="get" class="dropdown px-3">
+                        <button class="btn btn-default dropdown-toggle " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            BRANDS
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><input type="submit" class="dropdown-item" name="search" value="Nike"></li>
+                            <li><input type="submit" class="dropdown-item" name="search" value="Old Navy"></li>
+                            <li><input type="submit" class="dropdown-item" name="search" value="A"></li>
+                        </ul>
+                    </form>  
                 </li>
             </ul>
         </div>

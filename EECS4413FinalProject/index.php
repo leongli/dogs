@@ -7,6 +7,16 @@ $dao = new itemDAOImpl();
 
 if (!isset($_GET['search']) || $_GET['search'] == '') {
     $data = $dao->getAllItems($mysqli);
+    // if(!isset($_GET['sort']));
+    // else if($_GET['sort'] == 'Price Ascending'){ //price ascending
+        
+    // }else if($_GET['sort'] == 'Price Descending'){    //price descending 
+
+    // }else if($_GET['sort'] == 'Brand Ascending'){    //brand ascending
+
+    // }else if($_GET['sort'] == 'Brand Descending'){    //brand descending 
+
+    // }
 } else {
     $data = $dao->searchItems($mysqli, $_GET['search']);
     // print_r($data);
@@ -31,9 +41,35 @@ if (!isset($_GET['search']) || $_GET['search'] == '') {
 <body style="background-color:#EEEEEE; font-family: 'Open Sans', sans-serif;">
 
     <?php include 'header.php' ?>
-
     <!-- Content -->
     <section>
+        <div class="row g-0 pt-2">
+            <div class="col col-sm-1"></div>
+            <div class="col col-sm-9">
+                <!-- display category or brand route (if selected via navbar-->
+                <?php  if(isset($_GET['search'])) {?>
+                    <p>Search results for <b><?php echo $_GET['search'] ?></b></p>
+                <?php }?>
+            </div>
+            <div class="col col-sm-1">
+                <!-- sorting dropdown menu -->
+                <form action="" method="get" class="dropdown">
+                    <label for="">Sort By:</label>
+                    <button class="btn btn-default dropdown-toggle btn-outline-secondary" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    --
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                        <li><input type="submit" class="dropdown-item" name="sort" value="Price Ascending"></li>
+                        <li><input type="submit" class="dropdown-item" name="sort" value="Price Descending"></li>
+                        <li><input type="submit" class="dropdown-item" name="sort" value="Brand Ascending"></li>
+                        <li><input type="submit" class="dropdown-item" name="sort" value="Brand Descending"></li>
+                    </ul>
+                
+                </form> 
+            </div>
+        </div>
+        
+        
         <?php foreach ($data as $item) : ?>
             <div class="w-75 d-block mx-auto">
                 <a class="text-decoration-none text text-dark"href="itempage.php?id=<?php echo $item['ItemID'] ?>">
@@ -59,7 +95,12 @@ if (!isset($_GET['search']) || $_GET['search'] == '') {
                                     <h5 class="card-subtitle">Price: $<?php echo $item['Price'] ?></h5>
                                     <p class="card-text"><?php echo $item['Category'] ?></p>
                                     <p class="card-text"><?php echo $item['Brand'] ?></p>
-
+                                    <!-- Form for quick add to cart -->
+                                    <form action="<?php echo htmlspecialchars("backend/controller/orderCon.php"); ?>" method="post">
+                                        <input type="hidden" name="qty" value="1">
+                                        <input type="hidden" name="id" value="<?php echo $item['ItemID']; ?>">
+                                    <input type="submit" name="add" value="Quick Add to Cart">
+                                    </form>
                                 </div>
                             </div>
                         </div>

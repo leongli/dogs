@@ -71,12 +71,15 @@ $displaycart = $cart->getCart();
             
             <div class="row w-100 py-3">
                 <div class="col-1"></div>
-                <div class="col-9">
+                <div class="col-8">
                     <h4><b>Total Price: $<?php echo $totalPrice; ?></b></h4>
                 </div>
                 <div class="col">
+                    <button class="btn btn-outline-secondary" type="button" href="../">Continue Shopping</button>
+                </div>
+                <div class="col">
                     <form action="backend/controller/shoppingcartCon.php" method="post">
-                        <input type="submit" name="order" value="Place Order" style="width:50%">
+                        <input type="submit" name="order" value="Place Order" class="btn btn-outline-secondary" style="width:50%">
                     </form>
                 </div>
             </div>

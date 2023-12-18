@@ -73,6 +73,32 @@
             $arr['password'] = hash('sha1', ($mysqli -> real_escape_string(test_input($_POST['password']))));
         }
 
+        if (empty($_POST["billingaddress"])) {
+            // $bAddErr = "Billing address is required";
+            // $error = true;
+        } else {
+            $arr['billingaddress'] = $mysqli -> real_escape_string(test_input($_POST['billingaddress']));
+
+            // check if address only contains words, whitespace, comma & period
+            if (!preg_match("/^[\w\s ,.]+$/",$arr['billingaddress'])) {
+                $bAddErr = "Invalid billing address: only accepts words, whitespace, comma & period";
+                $error = true;
+            }
+        }
+        
+        if (empty($_POST["shippingaddress"])) {
+            // $sAddErr = "Shipping address is required";
+            // $error = true;
+        } else {
+            $arr['shippingaddress'] = $mysqli -> real_escape_string(test_input($_POST['shippingaddress']));
+
+            // check if address only contains words, whitespace, comma & period
+            if (!preg_match("/^[\w\s ,.]+$/",$arr['shippingaddress'])) {
+                $sAddErr = "Invalid shipping address: only accepts words, whitespace, comma & period";
+                $error = true;
+            }
+        }
+
         $arr['rank'] = "user";
 
         $arr['userid'] = create_userid();
@@ -153,10 +179,13 @@
 
             <form action="" method="post">
 
-            <input class="input" type="text" name="firstname" placeholder="First Name" value="<?php echo (!empty($arr['firstname'])) ? $arr['firstname'] : ""; ?>"> <?php if(!empty($fnameErr)) { echo '<p style="color: red;">' . $fnameErr . '</p>';} ?><br>
-            <input class="input" type="text" name="lastname" placeholder="Last Name" value="<?php echo (!empty($arr['lastname'])) ? $arr['lastname'] : ""; ?>"> <?php if(!empty($lnameErr)) { echo '<p style="color: red;">' . $lnameErr . '</p>';} ?><br>
-            <input class="input" type="email" name="email" placeholder="Email" value="<?php echo (!empty($arr['email'])) ? $arr['email'] : ""; ?>"> <?php if(!empty($emailErr)) { echo '<p style="color: red;">' . $emailErr . '</p>';} ?><br>
-            <input class="input" type="password" name="password" placeholder="Password" value="<?php echo (!empty($_POST['password'])) ? $_POST['password'] : ""; ?>"> <?php if(!empty($passErr)) { echo '<p style="color: red;">' . $passErr . '</p>';} ?><br>
+            <input class="input" type="text" name="firstname" placeholder="First Name *" value="<?php echo (!empty($arr['firstname'])) ? $arr['firstname'] : ""; ?>"> <?php if(!empty($fnameErr)) { echo '<p style="color: red;">' . $fnameErr . '</p>';} ?><br>
+            <input class="input" type="text" name="lastname" placeholder="Last Name *" value="<?php echo (!empty($arr['lastname'])) ? $arr['lastname'] : ""; ?>"> <?php if(!empty($lnameErr)) { echo '<p style="color: red;">' . $lnameErr . '</p>';} ?><br>
+            <input class="input" type="email" name="email" placeholder="Email *" value="<?php echo (!empty($arr['email'])) ? $arr['email'] : ""; ?>"> <?php if(!empty($emailErr)) { echo '<p style="color: red;">' . $emailErr . '</p>';} ?><br>
+            <input class="input" type="password" name="password" placeholder="Password *" value="<?php echo (!empty($_POST['password'])) ? $_POST['password'] : ""; ?>"> <?php if(!empty($passErr)) { echo '<p style="color: red;">' . $passErr . '</p>';} ?><br>
+            <input class="input" type="text" name="billingaddress" placeholder="Billing Address" value="<?php echo (!empty($arr['billingaddress'])) ? $arr['billingaddress'] : ""; ?>"> <?php if(!empty($bAddErr)) { echo '<p style="color: red;">' . $bAddErr . '</p>';} ?><br>
+            <input class="input" type="text" name="shippingaddress" placeholder="Shipping Address" value="<?php echo (!empty($arr['billingaddress'])) ? $arr['billingaddress'] : ""; ?>"> <?php if(!empty($sAddErr)) { echo '<p style="color: red;">' . $sAddErr . '</p>';} ?><br>
+            <p>* indicates required fields</p>
             <br>
             <input class="button" type="submit" value="Sign-up"> <br>
             </form>
