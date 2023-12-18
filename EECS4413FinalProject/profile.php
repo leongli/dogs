@@ -36,13 +36,13 @@ $orderResult = $result->fetch_all(MYSQLI_ASSOC);
     
     <div class="container pt-5">
 
-
+        <?php  $i=0;?>
         <h3 class="">Hello, <?php echo $_SESSION['myname']; ?></h3>
         <section>
             Past Orders:
             <hr>
             <?php foreach ($orderResult as $order) : ?>
-
+                <?php $i++;?>
                 <a class="text-decoration-none text-dark"href="orderSummary.php?order=<?php echo $order['OrderID']; ?>">
                     <div>
                         
@@ -53,8 +53,11 @@ $orderResult = $result->fetch_all(MYSQLI_ASSOC);
                     </div>
                 </a>
             <?php endforeach; ?>
-
+            
         </section>
+        <?php if($i == 0) {?>
+            <h5 class="text-center">No order history,  <a href="index.php">Shop for items</a></h5>
+        <?php } ?>
     </div>
     </div>
     <?php include 'footer.php' ?>
