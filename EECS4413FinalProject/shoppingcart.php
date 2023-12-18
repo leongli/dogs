@@ -23,11 +23,15 @@ $displaycart = $cart->getCart();
     <title>Cart: <?php echo $_SESSION['myname']; ?></title>
     <script src="js/file.js" defer></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 
 </head>
 
-<body>
+<body style="background-color:#EEEEEE; font-family: 'Open Sans', sans-serif;">
 
     <?php include 'header.php' ?>
 
@@ -46,10 +50,10 @@ $displaycart = $cart->getCart();
                             </div>
                             <div class="col-md-9">
                                 <div class="card-body">
-                                    <ul>
-                                        <li><?php echo $item->getName() ?></li>
-                                        <li>Item Price: $<?php echo $item->getPrice() ?></li>
-                                    </ul>
+                                    
+                                <div class="fs-4">Item Name: <?php echo $item->getName() ?></div><br>
+                                <div class="fs-6">Item Price: $<?php echo $item->getPrice() ?></div>
+                                <br>
                                     <form action="backend/controller/shoppingcartCon.php" method="post">
                                         <label for="">Qty: </label><input type="number" name="qty" min="1" max="99" value="<?php echo $item->getOrderQty() ?>">
                                         <input type="submit" name="update" value="Update">
@@ -89,9 +93,7 @@ $displaycart = $cart->getCart();
 
     <?php include 'footer.php' ?>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
+   
 </body>
 
 </html>
