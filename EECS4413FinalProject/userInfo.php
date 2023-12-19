@@ -14,7 +14,7 @@
         $userId = $_GET['id'];
     }
 
-    //Check For Submit
+    // Updates the user
     if (filter_has_var(INPUT_POST, 'update')) { //checking for type post with name update
         //Get Form Data
         $first = $mysqli->real_escape_string(test_input($_POST['first']));
@@ -26,35 +26,22 @@
         $dao->updateUser($mysqli, $first, $last, $email, $role, $userId);
     }
 
-
     /*
     * Get Database data
     */
     if($userId != null) {
-
         $userId = $mysqli -> real_escape_string(test_input($userId));
 
-        // Create Query
+        // Get the user with the given id
         $query = "SELECT * FROM users WHERE UserID = " . $userId . " LIMIT 1;";
-
-        // Get Result
         $result = $mysqli -> query($query);
-
-        // Fetch Data
         $userResult = $result -> fetch_all(MYSQLI_ASSOC);
 
-        // Create Query
+        // Get all orders from the given user
         $query = "SELECT * FROM orders WHERE CustomerID = " . $userId . ";";
-
-        // Get Result
         $result = $mysqli -> query($query);
-
-        // Fetch Data
         $orderResults = $result -> fetch_all(MYSQLI_ASSOC);
     }
-
-    
-
 ?>
 
 <!DOCTYPE html>
@@ -75,6 +62,7 @@
 
     <section class="container">
         <br><br><br>
+        <!-- Display user-specific info -->
         <form action="" method="post" id="userDetails" enctype="multipart/form-data">
             <h2><em>USER INFO</em></h2>
             <div class="text-decoration-underline">User ID: <?php echo $userResult[0]['UserID']; ?></div>
@@ -90,13 +78,13 @@
             <button type="submit" name="update">Update User Details</button>
         </form>
         <hr>
+        <!-- Display order history of the given user -->
         <h2><em>ORDER HISTORY</em></h2>
         <?php  $i=0;?>
         <?php foreach ($orderResults as $order) : ?>
             <?php $i++;?>
             <a class="text-decoration-none text-dark"href="orderSummary.php?order=<?php echo $order['OrderID']; ?>">
                 <div>
-                    
                     <div class="text-decoration-underline">Order ID: <?php echo $order['OrderID']; ?></div>
                     <div>Date: <?php echo $order['DatePurchase']; ?></div>
                     <div>Cost: $<?php echo $order['TotalCost']; ?></div>
@@ -105,10 +93,11 @@
             </a>
         <?php endforeach; ?>
         <?php if($i == 0) {?>
-            <h5 class="text-center">No order history,  <a href="index.php">Shop for items</a></h5>
+            <h5 class="text-center">No order history. <a href="index.php">Shop for items</a></h5>
         <?php } ?>
     </section>
 
     <?php include 'footer.php'; ?>
+    
 </body>
 </html>

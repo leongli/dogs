@@ -6,6 +6,11 @@
     $error = false;
     $nameErr = $emailErr = $passErr = "";
 
+    /**
+     * Sanitize and validate user input
+     * @param string $data - the data to be sanitized
+     * @return string - the sanitized data
+     */
     function test_input($data) {
         $data = trim($data);
         $data = stripslashes($data);
@@ -13,6 +18,10 @@
         return $data;
     }
 
+    /**
+     * Creates a random user id
+     * @return string - the user id
+     */
     function create_userid() {
         $length = rand(4,20);
         $number = "";
@@ -26,7 +35,7 @@
     }
 
     if($_SERVER['REQUEST_METHOD'] == "POST") {
-        
+        // Validate the provided first name
         if (empty($_POST["firstname"])) {
             $fnameErr = "First name is required";
             $error = true;
@@ -40,6 +49,7 @@
             }
         }
 
+        // Validate the provided last name
         if (empty($_POST["lastname"])) {
             $lnameErr = "Last name is required";
             $error = true;
@@ -53,6 +63,7 @@
             }
         }
 
+        // Validate the provided email
         if (empty($_POST["email"])) {
             $emailErr = "Email is required";
             $error = true;
@@ -66,6 +77,7 @@
             }
         }
 
+        // Validate the provided password
         if (empty($_POST["password"])) {
             $passErr = "Password is required";
             $error = true;
@@ -73,6 +85,7 @@
             $arr['password'] = hash('sha1', ($mysqli -> real_escape_string(test_input($_POST['password']))));
         }
 
+        // Validate the provided billing address
         if (empty($_POST["billingaddress"])) {
             // $bAddErr = "Billing address is required";
             // $error = true;
@@ -86,6 +99,7 @@
             }
         }
         
+        // Validate the provided shipping address
         if (empty($_POST["shippingaddress"])) {
             // $sAddErr = "Shipping address is required";
             // $error = true;
@@ -99,8 +113,10 @@
             }
         }
 
+        // Set the default rank to be "user"
         $arr['rank'] = "user";
 
+        // Generate a new user id until a unique one is obtained
         $arr['userid'] = create_userid();
         $condition = true;
         while($condition) {
@@ -122,6 +138,7 @@
             $condition = false;
         }
         
+        // Create the new user in the database
         $query = "INSERT INTO users (UserID,FirstName,LastName,Email,`Password`,Rank,Shipping,Billing) VALUES (?,?,?,?,?,?,?,?)";
         $stm = $mysqli -> prepare($query);
 
@@ -177,6 +194,7 @@
                 }
             </style>
 
+            <!-- Form with all sign up fields -->
             <form action="" method="post">
             <?php if($error) { }?>
             <input class="input" type="text" name="firstname" placeholder="First Name *" value="<?php echo (!empty($arr['firstname'])) ? $arr['firstname'] : ""; ?>"> <?php if(!empty($fnameErr)) { echo '<p style="color: red;">' . $fnameErr . '</p>';} ?><br>

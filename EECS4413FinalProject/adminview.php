@@ -6,35 +6,20 @@ access('USER');
 require('backend/config/config.php');
 require('backend/config/db.php');
 
-// Create Query
+// Query database to get all orders from a specific customer, ordered by date
 $query = "SELECT * FROM orders WHERE CustomerID = " . $_SESSION['myid'] . " ORDER BY STR_TO_DATE(DatePurchase, '%Y-%m-%d') DESC;";
-
-// Get Result
 $result = $mysqli->query($query);
-
-// Fetch Data
 $orderResult = $result->fetch_all(MYSQLI_ASSOC);
 
-
-// Create Query
+// Get all the users that exist in the database
 $queryUsers = "SELECT * FROM users";
-
-// Get Result
 $resultUsers = $mysqli->query($queryUsers);
-
-// Fetch Data
 $userResult = $resultUsers->fetch_all(MYSQLI_ASSOC);
 
-
-// Create Query
+// Get all the items that exist in the database
 $queryItems = "SELECT * FROM items";
-
-// Get Result
 $resultItems = $mysqli->query($queryItems);
-
-// Fetch Data
 $itemResult = $resultItems->fetch_all(MYSQLI_ASSOC);
-
 ?>
 
 <!DOCTYPE html>
@@ -51,17 +36,13 @@ $itemResult = $resultItems->fetch_all(MYSQLI_ASSOC);
             display: block;
         }
     </style>
-
 </head>
 
 <body>
     <?php include 'header.php' ?>
     <div style="background-color:#EEEEEE; height:90vh">
-
-
         <div class="container pt-5">
             <h3 class="">Hello, <?php echo $_SESSION['myname']; ?></h3>
-
             <!-- Tab links -->
             <ul class="nav nav-tabs" id="myTabs">
                 <li class="nav-item">
@@ -77,14 +58,15 @@ $itemResult = $resultItems->fetch_all(MYSQLI_ASSOC);
 
             <!-- Tab content -->
             <div class="tab-content">
+                <!-- Sales History Tab -->
                 <div id="tab-1" class="tab-pane fade active show">
                     <hr>
                     <?php  $i=0;?>
+                    <!-- Display key info of each order -->
                     <?php foreach ($orderResult as $order) : ?>
                         <?php $i++;?>
                         <a class="text-decoration-none text-dark"href="orderSummary.php?order=<?php echo $order['OrderID']; ?>">
                             <div>
-                                
                                 <div class="text-decoration-underline">Order ID: <?php echo $order['OrderID']; ?></div>
                                 <div>Date: <?php echo $order['DatePurchase']; ?></div>
                                 <div>Cost: $<?php echo $order['TotalCost']; ?></div>
@@ -92,13 +74,15 @@ $itemResult = $resultItems->fetch_all(MYSQLI_ASSOC);
                             </div>
                         </a>
                     <?php endforeach; ?>
+                    <!-- Default message if no orders exist -->
                     <?php if($i == 0) {?>
                         <h5 class="text-center">No order history, <a href="index.php">shop for items</a></h5>
                     <?php } ?>
                 </div>
-
+                <!-- Customer Accounts Tab -->
                 <div id="tab-2" class="tab-pane fade">
                     <?php  $i=0;?>
+                    <!-- Display key info of each user -->
                     <?php foreach ($userResult as $user) : ?>
                         <?php $i++;?>
                         <a class="text-decoration-none text-dark"href="userInfo.php?id=<?php echo $user['UserID']; ?>">
@@ -111,13 +95,15 @@ $itemResult = $resultItems->fetch_all(MYSQLI_ASSOC);
                             </div>
                         </a>
                     <?php endforeach; ?>
+                    <!-- Default message if no users exist -->
                     <?php if($i == 0) {?>
                         <h5 class="text-center">No users registered.</h5>
                     <?php } ?>
                 </div>
-
+                <!-- Inventory Tab -->
                 <div id="tab-3" class="tab-pane fade">
                 <?php  $i=0;?>
+                    <!-- Display key info of each item -->
                     <?php foreach ($itemResult as $item) : ?>
                         <?php $i++;?>
                         <div class="w-75 d-block mx-auto">
@@ -141,6 +127,7 @@ $itemResult = $resultItems->fetch_all(MYSQLI_ASSOC);
                         </a>
                     </div>
                     <?php endforeach; ?>
+                    <!-- Default message if no items exist -->
                     <?php if($i == 0) {?>
                         <h5 class="text-center">No items available. <a href="adminpage.php">Create an item here.</a></h5>
                     <?php } ?>

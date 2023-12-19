@@ -2,6 +2,9 @@
 
 require('../dao/itemDAOImpl.php');
 
+/**
+ * Get the item and add it to cart
+ */
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
  
     $dao = new itemDAOImpl();

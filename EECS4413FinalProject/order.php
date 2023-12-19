@@ -36,6 +36,7 @@ $displaycart = $cart->getCart();
 
     <section>
         <h2 class="d-block mx-auto px-5 pt-5">Your Order</h2>
+        <!-- Display contents of each item in the order -->
         <?php
         $totalPrice = 0;
         if (isset($displaycart) && !$cart->isEmpty()) {
@@ -67,22 +68,22 @@ $displaycart = $cart->getCart();
             
             <div class="row w-100 py-3">
                 <div class="col-1"></div>
+                <!-- Total price -->
                 <div class="col-8">
                     <h4><b>Total Price: $<?php echo $totalPrice; ?></b></h4>
                 </div>
                 <div class="col">
                     <a href="index.php"><button class="btn btn-outline-secondary" type="button">Cancel</button></a>
                 </div>
-                
+                    <!-- User shipping + billing information -->
                     <form action="backend/controller/shoppingcartCon.php" method="post">
                         <label for="">Shipping Address</label><input type="text" name="ship" value="<?php if(isset($_SESSION['ship'])) {echo $_SESSION['ship'];} ?>" required><br>
                         <label for="">Billing Address</label><input type="text" name="bill" value="<?php if(isset($_SESSION['bill'])) {echo $_SESSION['ship'];} ?>" required><br>
                         <label for="">Card #</label><input type="number" name="card" min="1" required><br>
                         <input type="submit" name="order" value="Place Order" class="btn btn-outline-secondary" style="width:50%">
                     </form>
-            
             </div>
-
+        <!-- Display default message for an empty cart -->
         <?php } else { ?>
             <div class="container pt-5 text-center">
                 <h1 class="pt-5">CART IS EMPTY</h1>

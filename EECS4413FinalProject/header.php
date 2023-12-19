@@ -19,13 +19,15 @@
 
     <?php endif; ?>
     <nav class="navbar navbar-expand-lg navbar-light" style="height:10vh">
-
+        <!-- Logo -->
         <a href="index.php" class="navbar-brand" ><img src="images/logo_v2.png" alt="Logo" style="height:10vh;"></a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+                <!-- Home -->
                 <li class="nav-item pl-3">
                     <a class="nav-link active" aria-current="page" href="index.php">HOME</a>
                 </li>
+                <!-- Categories -->
                 <li class="nav-item pl-3">
                     <form action="index.php" method="get" class="dropdown px-3">
                         <button class="btn btn-default dropdown-toggle " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -39,6 +41,7 @@
                     </form>  
 
                 </li>
+                <!-- Brands -->
                 <li class="nav-item pl-3">
                 <form action="index.php" method="get" class="dropdown px-3">
                         <button class="btn btn-default dropdown-toggle " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -54,7 +57,7 @@
                 </li>
             </ul>
         </div>
-
+        <!-- Search by keyword -->
         <form action="index.php" method="get" class="row g-3 align-items-center">
             <div class="col-auto">
                 <label for="" class="pr-1"><i class="fa-solid fa-magnifying-glass"></i></label>
@@ -66,12 +69,14 @@
                 <input class="btn btn-outline-secondary" type="submit" value="Search">
             </div>
         </form>
+        <!-- User Icon -->
         <div class="dropdown px-2">
             <button class="btn btn-default dropdown-toggle " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fa-regular fa-lg fa-user" style="color: #000000;"></i>
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
             <?php
+    // Provide the proper access, depending on user state
     if (access('ADMIN', false)) : ?>
 
         <li><a class="dropdown-item" href="adminview.php">View Admin Profile</a></li>

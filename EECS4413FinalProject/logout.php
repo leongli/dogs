@@ -2,6 +2,7 @@
 
 session_start();
 
+// Clear everything upon logout
 if(isset($_SESSION['myname'])) {
     unset($_SESSION['myname']);
 }

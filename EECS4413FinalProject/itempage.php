@@ -32,9 +32,8 @@ $data = $dao->getItemsById($id, $config, $db);
 
 <body style="background-color:#EEEEEE; font-family: 'Open Sans', sans-serif;">
     <?php include 'header.php' ?>
-
-    <!-- Content -->
     <section style="height:90vh">
+        <!-- Display the content of each item -->
         <?php foreach ($data as $item) : ?>
             <div class="container h-75">
                 <form action="<?php echo htmlspecialchars("backend/controller/orderCon.php"); ?>" method="post" class="row h-100  align-items-center">
@@ -54,8 +53,6 @@ $data = $dao->getItemsById($id, $config, $db);
                     </div>
                 </form>
             </div>
-
-
         <?php endforeach; ?>
     </section>
 

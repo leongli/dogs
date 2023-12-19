@@ -10,9 +10,11 @@ access('ADMIN');
 //Message Vars
 $msg = '';
 
-//Check For Submit
+/**
+ * Adds the item to the `items` database (if all required fields are filled)
+ * Displays error message otherwise
+ */
 if (filter_has_var(INPUT_POST, 'submit')) { //checking for type post with name submit
-
     //Get Form Data
     $name = $mysqli->real_escape_string(test_input($_POST['name']));
     $desc = $mysqli->real_escape_string(test_input($_POST['desc']));
@@ -27,7 +29,6 @@ if (filter_has_var(INPUT_POST, 'submit')) { //checking for type post with name s
     //Check Required Fields
     if (!empty($name) && !empty($desc) && !empty($category) && !empty($brand) && !empty($price)) {
         // Passed
-
         $dao = new itemDAOImpl();
         $dao->addItem($mysqli, $name, $desc, $category, $brand, $price, $fileName, $fileTmpName, $fileSize, $fileError);
     } else {
@@ -48,16 +49,15 @@ if (filter_has_var(INPUT_POST, 'submit')) { //checking for type post with name s
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
 </head>
 
 <body style="background-color:#EEEEEE; font-family: 'Open Sans', sans-serif;">
-
-
     <section class="container pt-5">
         <div class="row justify-content-center pt-5">
             <div class="col-md-6 text-center">
                 <h1>Create Item</h1>
+                <!-- Form to create a new item
+                     Returns back to this page when created -->
                 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" enctype="multipart/form-data">
                     <div class="mb-3 row">
                         <label for="" class="col-sm-3 col-form-label text-left">Name: </label><br>
@@ -110,6 +110,7 @@ if (filter_has_var(INPUT_POST, 'submit')) { //checking for type post with name s
                     <input type="submit" name="submit" value="Add" class="btn btn-outline-success">
                     <button type="button" class="btn btn-outline-danger" onclick="location.href='../'">Cancel</button>
                 </form>
+                <!-- Used to display error messages, if not all fields are filled -->
                 <?php if ($msg != '') {
                     echo $msg;
                 } ?>

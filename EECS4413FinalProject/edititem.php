@@ -61,22 +61,23 @@ $categories = $result -> fetch_all(MYSQLI_ASSOC);
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
 </head>
 
 <body style="background-color:#EEEEEE; font-family: 'Open Sans', sans-serif;">
     <?php include 'header.php' ?>
-
-    <!-- Content -->
     <section style="height:90vh">
+        <!-- Display info about each item -->
         <?php foreach ($data as $item) : ?>
             <div class="container h-75">
+            <!-- Create a form so that the data can be updated -->
             <form action="" method="post" id="userDetails" enctype="multipart/form-data" class="row h-100  align-items-center">
                     <div class="col-md-4">
                         <img src="<?php echo $item['ImageURL'] ?>" alt="Product" class="img-fluid">
                     </div>
                     <div class="col-md-8" style="font-family: 'Open Sans', sans-serif;">
+                        <!-- Name -->
                         <div>Name: <input type="text" name="name" value='<?php echo $item['Name'] ?>'></div>
+                        <!-- Brand -->
                         <div>Brand:                         
                         <input type="text" list="brands" name="brand" value='<?php echo $item['Brand'] ?>' />
                         <datalist id="brands">
@@ -85,6 +86,7 @@ $categories = $result -> fetch_all(MYSQLI_ASSOC);
                             <?php endforeach; ?>
                         </datalist>
                         </div>
+                        <!-- Category -->
                         <div>Category:                         
                         <select name="cat" id="cat">
                             <?php foreach ($categories as $cat) : ?>
@@ -92,23 +94,27 @@ $categories = $result -> fetch_all(MYSQLI_ASSOC);
                             <?php endforeach; ?>
                         </select>
                         </div>
+                        <!-- Price -->
                         <div>Price: $<input type="number" name="price" value=<?php echo $item['Price'] ?>></div>
+                        <!-- Description -->
                         <div>Description: <input type="text" name="desc" value='<?php echo $item['Description'] ?>'></div>
+                        <!-- Quantity -->
                         <label for="qty">Quantity: </label>
                         <input type="number" name="qty" min="1" max="99999" value=<?php echo $item['Qty'] ?>>
+                        <!-- Image -->
                         <div class="mb-3 row">
                             <label for="" class="col-sm-3 col-form-label text-left">Change Image: </label>
                             <div class="col-sm-9">
                                 <input class="border-card w-100 h-100" type="file" name="file">
                             </div>
                         </div>
+
                         <input type="hidden" name="id" value="<?php echo $item['ItemID']; ?>">
+                        <!-- Submit Button -->
                         <input type="submit" name="update" value="Update Item">
                     </div>
                 </form>
             </div>
-
-
         <?php endforeach; ?>
     </section>
 

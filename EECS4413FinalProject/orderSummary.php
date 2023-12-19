@@ -3,6 +3,11 @@
     require('backend/config/config.php');
     require('backend/config/db.php');
 
+    /**
+     * Sanitize and validate user input
+     * @param string $data - the data to be sanitized
+     * @return string - the sanitized data
+     */
     function test_input($data) {
         $data = trim($data);
         $data = stripslashes($data);
@@ -15,41 +20,25 @@
     if(isset($_GET['order'])) {
         $orderId = $_GET['order'];
     }
-//here
-    if($orderId != null) {
 
+    if($orderId != null) {
         $orderId = $mysqli -> real_escape_string(test_input($orderId));
 
-        // Create Query
+        // Get the order with the given id
         $query = "SELECT * FROM orders WHERE OrderID = " . $orderId . " LIMIT 1;";
-
-        // Get Result
         $result = $mysqli -> query($query);
-
-        // Fetch Data
         $orderResult = $result -> fetch_all(MYSQLI_ASSOC);
 
-        // Create Query
+        // Get all items in the order
         $query = "SELECT * FROM order_items WHERE OrderID = " . $orderId . ";";
-
-        // Get Result
         $result = $mysqli -> query($query);
-
-        // Fetch Data
         $itemResults = $result -> fetch_all(MYSQLI_ASSOC);
 
-        // Create Query
+        // Get info about the user who created the order
         $query = "SELECT FirstName, LastName FROM users WHERE UserID = " . $orderResult[0]['CustomerID'] . ";";
-
-        // Get Result
         $result = $mysqli -> query($query);
-
-        // Fetch Data
         $userResults = $result -> fetch_all(MYSQLI_ASSOC);
     }
-
-    
-
 ?>
 
 <!DOCTYPE html>
@@ -69,6 +58,7 @@
     <?php include 'header.php'; ?>
 
     <section class="container">
+        <!-- Display order information -->
         <br><br><br>
         <h2>ORDER NUMBER: <?php echo $orderResult[0]['OrderID']; ?></h2>
         <h5>DATE: <?php echo $orderResult[0]['DatePurchase']; ?></h5>
@@ -79,6 +69,7 @@
         <br>
         <h6>Your Items:</h6>
         <hr>
+        <!-- Display information about each item -->
         <?php foreach($itemResults as $item) : ?>
             <div class="row g-3">
                 <div class="col-md-3">

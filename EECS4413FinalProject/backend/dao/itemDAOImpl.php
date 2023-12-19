@@ -2,6 +2,11 @@
 
 require 'itemDAO.php';
 
+/**
+ * Sanitize and validate user input
+ * @param string $data - the data to be sanitized
+ * @return string - the sanitized data
+ */
 function test_input($data) {
     $data = trim($data);
     $data = stripslashes($data);
@@ -9,6 +14,10 @@ function test_input($data) {
     return $data;
 }
 
+/**
+ * Creates a random ID, used when placing an order
+ * @return string - the generated ID
+ */
 function create_id() {
     $length = rand(4,20);
     $number = "";
@@ -25,7 +34,11 @@ define('MB', 1048576);
 
 class itemDAOImpl implements itemDAO {
 
-  
+    /**
+     * Gets all items from the cart
+     * @param mysqli $mysqli - an instance of the MySQLi connection to the database
+     * @return array|null - an associative array containing all items if successful, or null if an error occurs
+     */
     public function getAllItems($mysqli){
 
         // Create Query
@@ -39,6 +52,13 @@ class itemDAOImpl implements itemDAO {
 
     }
 
+    /**
+     * Gets items sorted based on the specified sorting key and optional search key
+     * @param mysqli $mysqli - an instance of the MySQLi connection to the database
+     * @param string $sortKey - the sorting key
+     * @param string|null $searchKey - the optional search key
+     * @return array|null - an array containing sorted items if successful, or null if an error occurs
+     */
     public function getItemsSorted($mysqli, $sortKey, $searchKey){
         
         if($searchKey==null){
@@ -69,6 +89,12 @@ class itemDAOImpl implements itemDAO {
     }
 
 
+    /**
+     * Searches items based on the specified key
+     * @param mysqli $mysqli - an instance of the MySQLi connection to the database
+     * @param string $key - the search key
+     * @return array|null - an array containing matching items if successful, or null if an error occurs
+     */
     public function searchItems($mysqli, $key){
 
         $newkey = $mysqli -> real_escape_string(test_input($key));
@@ -84,6 +110,11 @@ class itemDAOImpl implements itemDAO {
 
     }
 
+    /**
+     * Updates the quantity of a cart item
+     * @param string $id - the ID of the item to be updated
+     * @param int $newQty - the new quantity
+     */
     public function updateCartItem($id, $newQty) {
         require_once('../config/config.php');
         require('../config/db.php');
@@ -97,6 +128,11 @@ class itemDAOImpl implements itemDAO {
         $cart->update($id, $newQty);
     }
 
+    /**
+     * Adds an item to the cart
+     * @param array $item - an associative array representing the item
+     * @param int $qty - the quantity to add
+     */
     public function addItemToCart($item, $qty){
         require_once('../config/config.php');
         require('../config/db.php');
@@ -109,6 +145,10 @@ class itemDAOImpl implements itemDAO {
         $cart->add($item['ItemID'], $item['Name'], $item['Category'], $item['Price'], $item['ImageURL'], $item['Brand'], $qty);
     }
 
+    /**
+     * Removes an item from the cart
+     * @param string $id - the ID of the item to be removed
+     */
     public function removeItemFromCart($id){
         require_once('../config/config.php');
         require('../config/db.php');
@@ -121,6 +161,20 @@ class itemDAOImpl implements itemDAO {
         $cart->remove($id);
     }
 
+    /**
+     * Adds an item to the database
+     * @param mysqli $mysqli - an instance of the MySQLi connection to the database
+     * @param string $name - the item name
+     * @param string $desc - the item description
+     * @param string $category - the item category
+     * @param string $brand - the item brand
+     * @param float $price - the item price
+     * @param string $fileName - the name of the uploaded file
+     * @param string $fileTmpName - the temporary file name of the uploaded file
+     * @param int $fileSize - the size of the uploaded file
+     * @param int $fileError - the error code associated with the uploaded file
+     * @return string - a status message indicating success or an error
+     */
     public function addItem($mysqli, $name, $desc, $category, $brand, $price, $fileName, $fileTmpName, $fileSize, $fileError) {
 
     
@@ -167,6 +221,22 @@ class itemDAOImpl implements itemDAO {
             
     }
 
+    /**
+     * Updates an item in the database with a new image
+     * @param mysqli $mysqli - an instance of the MySQLi connection to the database
+     * @param string $id - the ID of the item to be updated
+     * @param string $name - the item name
+     * @param string $desc - the item description
+     * @param string $category - the item category
+     * @param string $brand - the item brand
+     * @param float $price - the item price
+     * @param int $qty - the item quantity
+     * @param string $fileName - the name of the uploaded file
+     * @param string $fileTmpName - the temporary file name of the uploaded file
+     * @param int $fileSize - the size of the uploaded file
+     * @param int $fileError - the error code associated with the uploaded file
+     * @return bool - true if the update is successful, false otherwise
+     */
     public function updateItem($mysqli, $id, $name, $desc, $category, $brand, $price, $qty, $fileName, $fileTmpName, $fileSize, $fileError) {
         // Check if a file was uploaded
         if ($fileSize > 0 && $fileError === 0) {
@@ -214,6 +284,18 @@ class itemDAOImpl implements itemDAO {
         return $success;
     }
 
+    /**
+     * Updates an item in the database without changing the image
+     * @param mysqli $mysqli - an instance of the MySQLi connection to the database
+     * @param string $id - the ID of the item to be updated
+     * @param string $name - the item name
+     * @param string $desc - the item description
+     * @param string $category - the item category
+     * @param string $brand - the item brand
+     * @param float $price - the item price
+     * @param int $qty - the item quantity
+     * @return bool - true if the update is successful, false otherwise
+     */
     public function updateItemNoImage($mysqli, $id, $name, $desc, $category, $brand, $price, $qty) {
         $query = "UPDATE `items`
         SET
@@ -242,6 +324,13 @@ class itemDAOImpl implements itemDAO {
         }
     }
 
+    /**
+     * Gets items by ID from the database
+     * @param string $id - the ID of the item to retrieve
+     * @param string $config - the path to the configuration file
+     * @param string $db - the path to the database file
+     * @return array|null - an associative array containing the item if successful, or null if an error occurs
+     */
     public function getItemsById($id, $config, $db){
 
         require_once($config);
@@ -259,6 +348,13 @@ class itemDAOImpl implements itemDAO {
          return $result -> fetch_all(MYSQLI_ASSOC);
     }
 
+    /**
+     * Places an order in the database, including order details and items in the cart
+     * @param string $ship - The shipping address for the order
+     * @param string $bill - The billing address for the order
+     * @param int $card - The credit card number for the order
+     * @return string|int - The order ID if successful, otherwise an error message
+     */
     public function placeOrder($ship, $bill, $card){
         require_once('../config/config.php');
         require('../config/db.php');

@@ -5,8 +5,12 @@ session_start();
 require_once('backend/config/config.php');
 require('backend/config/db.php');
 
-function test_input($data)
-{
+/**
+ * Sanitize and validate user input
+ * @param string $data - the data to be sanitized
+ * @return string - the sanitized data
+ */
+function test_input($data) {
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
@@ -15,6 +19,8 @@ function test_input($data)
 
 $error = "";
 
+// Log the user in if a valid login is provided
+// Display an error message otherwise
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     $arr['email'] = $mysqli->real_escape_string(test_input($_POST['email']));
@@ -97,9 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     width:40%;
                 }
             </style>
-
-
-
+            <!-- Display login form -->
             <form action="" method="post">
                 <div class="text-center">
                     <input class="input" type="text" name="email" placeholder="Email" required> <br>

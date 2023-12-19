@@ -2,7 +2,9 @@
 
     require('../dao/itemDAOImpl.php');
 
-    //Check For Submit
+    /**
+     * Find item and add to cart
+     */
     if(filter_has_var(INPUT_POST, 'add')) { //checking for type post with name submit
         $dao = new itemDAOImpl();
 

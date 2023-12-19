@@ -27,7 +27,6 @@ $displaycart = $cart->getCart();
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
-
 </head>
 
 <body style="background-color:#EEEEEE; font-family: 'Open Sans', sans-serif;">
@@ -38,6 +37,7 @@ $displaycart = $cart->getCart();
         <h2 class="d-block mx-auto px-5 pt-5">Your Shopping Cart</h2>
         <?php
         $totalPrice = 0;
+        // Display all items in the cart
         if (isset($displaycart) && !$cart->isEmpty()) {
             foreach ($displaycart as $item) : ?>
                 <div class="d-block mx-auto px-5">
@@ -66,30 +66,30 @@ $displaycart = $cart->getCart();
                     
                 </div>
             <?php $totalPrice += ($item->getPrice() * $item->getOrderQty());
-
             endforeach; ?>
-            
+            <!-- Display total price -->
             <div class="row w-100 py-3">
                 <div class="col-1"></div>
                 <div class="col-8">
                     <h4><b>Total Price: $<?php echo $totalPrice; ?></b></h4>
                 </div>
+                <!-- Button to continue shopping -->
                 <div class="col">
                     <a href="index.php"><button class="btn btn-outline-secondary" type="button">Continue Shopping</button></a>
                 </div>
+                <!-- Place Order button -->
                 <div class="col">
                     <form action="order.php" method="post">
                         <input type="submit" name="order" value="Place Order" class="btn btn-outline-secondary" style="width:50%">
                     </form>
                 </div>
             </div>
-
+        <!-- Default message if cart is empty -->
         <?php } else { ?>
             <div class="container pt-5 text-center">
                 <h1 class="pt-5">CART IS EMPTY</h1>
                 <h3><a href="<?php echo 'index.php'; ?> ">Shop for items</a></h3>  
             </div>
-            
         <?php } ?>
     </section>
 

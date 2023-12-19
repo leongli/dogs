@@ -4,7 +4,7 @@ require('backend/config/db.php');
 require('backend/dao/itemDAOImpl.php');
 
 $dao = new itemDAOImpl();
-
+// Retrieve all the items, depending on the search and/or sort settings applied
  if (!isset($_GET['search']) || $_GET['search'] == '' && (!isset($_GET['sort']))) {
     if(!isset($_GET['sort'])) $data = $dao->getAllItems($mysqli);
     else $data = $dao->getItemsSorted($mysqli, $_GET['sort'],'');
@@ -13,9 +13,6 @@ $dao = new itemDAOImpl();
     else $data = $dao->getItemsSorted($mysqli, $_GET['sort'],$_GET['search']);
     // print_r($data);
 }
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -33,12 +30,11 @@ $dao = new itemDAOImpl();
 <body style="background-color:#EEEEEE; font-family: 'Open Sans', sans-serif;">
 
     <?php include 'header.php' ?>
-    <!-- Content -->
     <section>
         <div class="row g-0 pt-2">
             <div class="col col-sm-1"></div>
             <div class="col col-sm-9">
-                <!-- display category or brand route (if selected via navbar-->
+                <!-- display category or brand route (if selected via navbar) -->
                 <?php  if(isset($_GET['search'])) {?>
                     <p>Search results for <b><?php echo $_GET['search'] ?></b></p>
                 <?php }?>
@@ -67,7 +63,7 @@ $dao = new itemDAOImpl();
             </div>
         </div>
         
-        
+        <!-- Display each item -->
         <?php foreach ($data as $item) : ?>
             <div class="w-75 d-block mx-auto">
                 <a class="text-decoration-none text text-dark"href="itempage.php?id=<?php echo $item['ItemID'] ?>">
