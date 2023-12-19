@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 19, 2023 at 06:00 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- Generation Time: Dec 19, 2023 at 10:40 AM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36,7 +36,7 @@ CREATE TABLE `items` (
   `Price` float NOT NULL,
   `ImageURL` varchar(60) NOT NULL,
   `Qty` int(60) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `items`
@@ -79,23 +79,33 @@ CREATE TABLE `orders` (
   `OrderID` bigint(20) NOT NULL,
   `CustomerID` bigint(20) NOT NULL,
   `DatePurchase` varchar(30) NOT NULL,
-  `TotalCost` int(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `TotalCost` int(20) NOT NULL,
+  `ShippingAdd` varchar(80) NOT NULL,
+  `BillingAdd` varchar(80) NOT NULL,
+  `CardNum` int(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`OrderID`, `CustomerID`, `DatePurchase`, `TotalCost`) VALUES
-(99428, 689569493090891064, '2023-12-18', 46),
-(2517926, 689569493090891064, '2023-12-02', 255),
-(889990995206, 689569493090891064, '2023-12-02', 224),
-(5463347731394, 32699, '2023-12-01', 269),
-(22961120920048, 689569493090891064, '2023-12-18', 45),
-(37126886476125, 689569493090891064, '2023-12-01', 45),
-(260715786918213, 689569493090891064, '2023-12-02', 135),
-(337881039272160, 8247001511, '2023-12-02', 255),
-(8658764066242929774, 689569493090891064, '2023-12-02', 269);
+INSERT INTO `orders` (`OrderID`, `CustomerID`, `DatePurchase`, `TotalCost`, `ShippingAdd`, `BillingAdd`, `CardNum`) VALUES
+(50729, 689569493090891064, '2023-12-19', 92, '', '', 0),
+(80964, 689569493090891064, '2023-12-19', 165, 'test', 'test', 2147483647),
+(99428, 689569493090891064, '2023-12-18', 46, '', '', 0),
+(2517926, 689569493090891064, '2023-12-02', 255, '', '', 0),
+(53260755, 689569493090891064, '2023-12-19', 110, '914 Regal rd', '914 Regal rd', 2147483647),
+(477148232, 689569493090891064, '2023-12-19', 15, 'test', 'test', 455),
+(533153326, 689569493090891064, '2023-12-19', 449, 'tert', 'ertert', 456456),
+(889990995206, 689569493090891064, '2023-12-02', 224, '', '', 0),
+(948885762663, 689569493090891064, '2023-12-19', 102, '56 tea rd', '56 tea rd', 2147483647),
+(5463347731394, 32699, '2023-12-01', 269, '', '', 0),
+(22961120920048, 689569493090891064, '2023-12-18', 45, '', '', 0),
+(36974883144294, 3671, '2023-12-19', 69, '34 round st', '34 round st', 2147483647),
+(37126886476125, 689569493090891064, '2023-12-01', 45, '', '', 0),
+(260715786918213, 689569493090891064, '2023-12-02', 135, '', '', 0),
+(337881039272160, 8247001511, '2023-12-02', 255, '', '', 0),
+(8658764066242929774, 689569493090891064, '2023-12-02', 269, '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -112,7 +122,7 @@ CREATE TABLE `order_items` (
   `Price` float NOT NULL,
   `ImageURL` varchar(60) NOT NULL,
   `Qty` int(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `order_items`
@@ -132,7 +142,20 @@ INSERT INTO `order_items` (`OrderID`, `ItemID`, `Name`, `Category`, `Brand`, `Pr
 (2517926, 5, 'Black Jeans', 'pants', 'old navy', 70, 'backend/itemimages/656b27bc541e13.93727413.png', 3),
 (2517926, 1, 'Jonathan Marghetis', 'test', 'test', 45, '', 1),
 (99428, 3, 'White Shirt', 'Shirt', 'Nike', 46, 'backend/itemimages/656b2590ed2262.81130387.jpg', 1),
-(22961120920048, 1, 'Jonathan Marghetis', 'test', 'test', 45, '', 1);
+(22961120920048, 1, 'Jonathan Marghetis', 'test', 'test', 45, '', 1),
+(50729, 7, 'Nike essentials T-Shirt', 'Tops', 'Nike', 23, 'backend/itemimages/65810c28ecf207.24067671.jpg', 4),
+(477148232, 12, 'Nike Hat', 'Accessories', 'Nike', 15, 'backend/itemimages/6581157d80a340.53721800.jpg', 1),
+(53260755, 7, 'Nike essentials T-Shirt', 'Tops', 'Nike', 23, 'backend/itemimages/65810c28ecf207.24067671.jpg', 1),
+(53260755, 8, 'Nike Athletic T-Shirt', 'Tops', 'Nike', 21, 'backend/itemimages/65810eaf68afb3.92016855.jpg', 2),
+(53260755, 11, 'Nike Backpack', 'Accessories', 'Nike', 45, 'backend/itemimages/6581154aa8b5b6.19080964.jpg', 1),
+(948885762663, 8, 'Nike Athletic T-Shirt', 'Tops', 'Nike', 21, 'backend/itemimages/65810eaf68afb3.92016855.jpg', 2),
+(948885762663, 10, 'Nike Athletic Sweatpants', 'Bottoms', 'Nike', 60, 'backend/itemimages/658114f946c536.81634930.jpg', 1),
+(80964, 9, 'Nike Grey Sweatpants', 'Bottoms', 'Nike', 55, 'backend/itemimages/6581102e3ff339.30782791.jpg', 3),
+(36974883144294, 7, 'Nike essentials T-Shirt', 'Tops', 'Nike', 23, 'backend/itemimages/65810c28ecf207.24067671.jpg', 3),
+(533153326, 8, 'Nike Athletic T-Shirt', 'Tops', 'Nike', 21, 'backend/itemimages/65810eaf68afb3.92016855.jpg', 4),
+(533153326, 9, 'Nike Grey Sweatpants', 'Bottoms', 'Nike', 55, 'backend/itemimages/6581102e3ff339.30782791.jpg', 2),
+(533153326, 12, 'Nike Hat', 'Accessories', 'Nike', 15, 'backend/itemimages/6581157d80a340.53721800.jpg', 1),
+(533153326, 13, 'Nike Air Force Sneaker', 'Accessories', 'Nike', 120, 'backend/itemimages/658115bf769b91.86056945.jpg', 2);
 
 -- --------------------------------------------------------
 
@@ -146,18 +169,22 @@ CREATE TABLE `users` (
   `LastName` varchar(20) NOT NULL,
   `Email` varchar(100) NOT NULL,
   `Password` varchar(64) NOT NULL,
-  `Rank` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `Rank` varchar(20) NOT NULL,
+  `Shipping` varchar(80) NOT NULL,
+  `Billing` varchar(80) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`UserID`, `FirstName`, `LastName`, `Email`, `Password`, `Rank`) VALUES
-(3879, 'L', 'L', 'leonli1928@gmail.com', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'user'),
-(32699, 'Jim', 'Sim', 'jim@mail.com', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'user'),
-(67068534624678948, 'test', 'test', 'testingmail@gmail.com', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'user'),
-(689569493090891064, 'Jonathan', 'Marghetis', 'jonathanmarghetis@gmail.com', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'admin');
+INSERT INTO `users` (`UserID`, `FirstName`, `LastName`, `Email`, `Password`, `Rank`, `Shipping`, `Billing`) VALUES
+(3671, 'tim', 'smith', 'tim@mail.com', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'user', '34 round st', '34 round st'),
+(3879, 'L', 'L', 'leonli1928@gmail.com', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'user', '', ''),
+(32699, 'Jim', 'Sim', 'jim@mail.com', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'user', '', ''),
+(36938804704492, 'j', 'j', 'j@mail.com', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'user', '', ''),
+(67068534624678948, 'test', 'test', 'testingmail@gmail.com', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'user', '', ''),
+(689569493090891064, 'Jonathan', 'Marghetis', 'jonathanmarghetis@gmail.com', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'admin', '', '');
 
 --
 -- Indexes for dumped tables

@@ -31,6 +31,6 @@ interface itemDAO {
 
     public function getItemsById($id, $config, $db);
 
-    public function placeOrder();
+    public function placeOrder($ship, $bill, $card);
 
 }

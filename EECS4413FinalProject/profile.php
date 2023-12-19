@@ -62,6 +62,11 @@ $itemResult = $resultItems->fetch_all(MYSQLI_ASSOC);
         <div class="container pt-5">
             <h3 class="">Hello, <?php echo $_SESSION['myname']; ?></h3>
 
+            <b>
+                <span>Shipping Address: <?php if(isset($_SESSION['ship']) && $_SESSION['ship'] != '') { echo $_SESSION['ship'];} else { echo "None";} ?></span><br>
+                <span>Billing Address: <?php if(isset($_SESSION['bill']) && $_SESSION['ship'] != '') { echo $_SESSION['bill'];} else { echo "None";} ?></span><br><br>
+            </b>
+
             <!-- Tab links -->
             <ul class="nav nav-tabs" id="myTabs">
                 <li class="nav-item">

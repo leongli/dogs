@@ -72,7 +72,10 @@
         <br><br><br>
         <h2>ORDER NUMBER: <?php echo $orderResult[0]['OrderID']; ?></h2>
         <h5>DATE: <?php echo $orderResult[0]['DatePurchase']; ?></h5>
-        <h5>Name: <?php echo $userResults[0]['FirstName'] . " " . $userResults[0]['LastName']; ?></h5>
+        <h5>Name: <?php echo $userResults[0]['FirstName'] . " " . $userResults[0]['LastName']; ?></h5><br>
+        <h6>Shipping Address: <?php echo $orderResult[0]['ShippingAdd']; ?></h6>
+        <h6>Billing Address: <?php echo $orderResult[0]['BillingAdd']; ?></h6>
+        <h6>Card: <?php echo $orderResult[0]['CardNum']; ?></h6>
         <br>
         <h6>Your Items:</h6>
         <hr>

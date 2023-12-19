@@ -27,8 +27,11 @@
     //Check For Submit
     if(filter_has_var(INPUT_POST, 'order')) { //checking for type post with name submit
         $dao = new itemDAOImpl();
+        $ship = $_POST['ship'];
+        $bill = $_POST['bill'];
+        $card = $_POST['card'];
 
-        $orderID = $dao->placeOrder();
+        $orderID = $dao->placeOrder($ship, $bill, $card);
 
         echo $orderID;
 

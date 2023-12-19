@@ -27,6 +27,7 @@ $dao = new itemDAOImpl();
     <title>The Dogs</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="js/main.js" defer></script>
 </head>
 
 <body style="background-color:#EEEEEE; font-family: 'Open Sans', sans-serif;">
@@ -92,18 +93,16 @@ $dao = new itemDAOImpl();
                                     <h5 class="card-subtitle">Price: $<?php echo $item['Price'] ?></h5>
                                     <p class="card-text"><?php echo $item['Category'] ?></p>
                                     <p class="card-text"><?php echo $item['Brand'] ?></p>
-                                    <!-- Form for quick add to cart -->
-                                    <form action="<?php echo htmlspecialchars("backend/controller/orderCon.php"); ?>" method="post">
-                                        <input type="hidden" name="qty" value="1">
-                                        <input type="hidden" name="id" value="<?php echo $item['ItemID']; ?>">
-                                    <input type="submit" name="add" value="Quick Add to Cart">
-                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <hr style="clear: both; visibility: hidden;">
                 </a>
+                <div class="quick">
+                    <button>Quick Add to Cart</button>
+                    <input type="hidden" name="id" value="<?php echo $item['ItemID']; ?>">
+                </div>
             </div>
         <?php endforeach; ?>
     </section>

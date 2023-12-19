@@ -35,7 +35,7 @@ $displaycart = $cart->getCart();
     <?php include 'header.php' ?>
 
     <section>
-        <h2 class="d-block mx-auto px-5 pt-5">Your Shopping Cart</h2>
+        <h2 class="d-block mx-auto px-5 pt-5">Your Order</h2>
         <?php
         $totalPrice = 0;
         if (isset($displaycart) && !$cart->isEmpty()) {
@@ -45,7 +45,7 @@ $displaycart = $cart->getCart();
                     <div class="card mb-3 mx-auto">
                         <div class="row g-0">
                             <div class="col-md-3">
-                                <img src="<?php echo $item->getImageURL() ?>" alt="Product" class="rounded-start d-block mx-auto" style="width: 100%; height: 100%; object-fit: cover;">
+                                <img src="<?php echo $item->getImageURL() ?>" alt="Product" class="rounded-start d-block mx-auto" style="object-fit:cover; height:32vh; width:32vh">
                             </div>
                             <div class="col-md-9">
                                 <div class="card-body">
@@ -53,12 +53,8 @@ $displaycart = $cart->getCart();
                                 <div class="fs-4">Item Name: <?php echo $item->getName() ?></div><br>
                                 <div class="fs-6">Item Price: $<?php echo $item->getPrice() ?></div>
                                 <br>
-                                    <form action="backend/controller/shoppingcartCon.php" method="post">
-                                        <label for="">Qty: </label><input type="number" name="qty" min="1" max="99" value="<?php echo $item->getOrderQty() ?>">
-                                        <input type="submit" name="update" value="Update">
-                                        <input type="submit" name="remove" value="Remove">
-                                        <input type="hidden" name="id" value="<?php echo $item->getId() ?>">
-                                    </form>
+                                        <label for="">Qty: </label> <span><?php echo $item->getOrderQty() ?></span>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -75,13 +71,16 @@ $displaycart = $cart->getCart();
                     <h4><b>Total Price: $<?php echo $totalPrice; ?></b></h4>
                 </div>
                 <div class="col">
-                    <a href="index.php"><button class="btn btn-outline-secondary" type="button">Continue Shopping</button></a>
+                    <a href="index.php"><button class="btn btn-outline-secondary" type="button">Cancel</button></a>
                 </div>
-                <div class="col">
-                    <form action="order.php" method="post">
+                
+                    <form action="backend/controller/shoppingcartCon.php" method="post">
+                        <label for="">Shipping Address</label><input type="text" name="ship" value="<?php if(isset($_SESSION['ship'])) {echo $_SESSION['ship'];} ?>" required><br>
+                        <label for="">Billing Address</label><input type="text" name="bill" value="<?php if(isset($_SESSION['bill'])) {echo $_SESSION['ship'];} ?>" required><br>
+                        <label for="">Card #</label><input type="number" name="card" min="1" required><br>
                         <input type="submit" name="order" value="Place Order" class="btn btn-outline-secondary" style="width:50%">
                     </form>
-                </div>
+            
             </div>
 
         <?php } else { ?>

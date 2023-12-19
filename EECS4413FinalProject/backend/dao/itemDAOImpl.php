@@ -175,6 +175,7 @@ class itemDAOImpl implements itemDAO {
 
             // Move the uploaded file to the "itemimages" directory
             $destination_path = getcwd().DIRECTORY_SEPARATOR;
+            // $target_path = $destination_path . basename( $fileName);
             $target_path = $destination_path . "backend/itemimages/" . basename( $uniqueFileName);
             @move_uploaded_file($fileTmpName, $target_path);
 
@@ -182,6 +183,7 @@ class itemDAOImpl implements itemDAO {
             // move_uploaded_file($fileTmpName, $uploadPath);
 
             // Use the new file path in the update statement
+            // $imageURL = basename( $fileName);
             $imageURL = "backend/itemimages/" . basename( $uniqueFileName);
         } else {
             // If no new image is provided, keep the existing one
@@ -257,7 +259,7 @@ class itemDAOImpl implements itemDAO {
          return $result -> fetch_all(MYSQLI_ASSOC);
     }
 
-    public function placeOrder(){
+    public function placeOrder($ship, $bill, $card){
         require_once('../config/config.php');
         require('../config/db.php');
         require("../model/Cart.php");
@@ -289,7 +291,7 @@ class itemDAOImpl implements itemDAO {
         }
 
 
-        $query = "INSERT INTO orders(OrderID,CustomerID,DatePurchase,TotalCost) VALUES(" . $arr['id'] . "," . $_SESSION['myid'] . ",'" . date('Y-m-d') . "'," . $totalCost . ");";
+        $query = "INSERT INTO orders(OrderID,CustomerID,DatePurchase,TotalCost,ShippingAdd,BillingAdd,CardNum) VALUES(" . $arr['id'] . "," . $_SESSION['myid'] . ",'" . date('Y-m-d') . "'," . $totalCost . ",'" . $ship . "','" . $bill . "'," . $card . ");";
         
         if($mysqli -> query($query)) {
             // Success

@@ -34,6 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 $_SESSION['myid'] = $data[0]['UserID'];
                 $_SESSION['myname'] = ($data[0]['FirstName'] . ' ' . $data[0]['LastName']);
                 $_SESSION['myrank'] = $data[0]['Rank'];
+                $_SESSION['ship'] = $data[0]['Shipping'];
+                $_SESSION['bill'] = $data[0]['Billing'];
                 $result->free_result();
             } else {
                 $error = "Wrong username or password";
