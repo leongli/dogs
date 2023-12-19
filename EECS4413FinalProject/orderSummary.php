@@ -79,7 +79,7 @@
         <?php foreach($itemResults as $item) : ?>
             <div class="row g-3">
                 <div class="col-md-3">
-                    <img  class="rounded-start d-block mx-auto" src="<?php echo $item['ImageURL']; ?>" alt="Product" style="object-fit:cover; height:32vh; width:32vh">
+                    <img  class="rounded-start d-block mx-auto" src="<?php echo $item['ImageURL']; ?>" alt="Product" style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
                 <div class="col-md-9">
                     <div class="fs-4">Product Name: <?php echo $item['Name']; ?></div><br>

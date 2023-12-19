@@ -45,7 +45,7 @@ $displaycart = $cart->getCart();
                     <div class="card mb-3 mx-auto">
                         <div class="row g-0">
                             <div class="col-md-3">
-                                <img src="<?php echo $item->getImageURL() ?>" alt="Product" class="rounded-start d-block mx-auto" style="object-fit:cover; height:32vh; width:32vh">
+                                <img src="<?php echo $item->getImageURL() ?>" alt="Product" class="rounded-start d-block mx-auto" style="width: 100%; height: 100%; object-fit: cover;">
                             </div>
                             <div class="col-md-9">
                                 <div class="card-body">

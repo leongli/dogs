@@ -83,7 +83,7 @@ $dao = new itemDAOImpl();
                     <div class="card mb-3 mx-auto">
                         <div class="row g-0">
                             <div class="col-md-3">
-                                <img src="<?php echo $item['ImageURL'] ?>" class="rounded-start d-block mx-auto" alt="Product" style="object-fit:cover; height:32vh; width:32vh">
+                                <img src="<?php echo $item['ImageURL'] ?>" class="rounded-start d-block mx-auto" alt="Product" style="width: 100%; height: 100%; object-fit: cover;">
                                 <!--<img src="<?php echo $item['ImageURL'] ?>" class="mx-auto d-block float-right" alt="Product" style="height: 450px; width:100%;"> style="height: 450px; width:100%;" -->
                             </div>
                             <div class="col-md-9">

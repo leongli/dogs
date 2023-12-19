@@ -25,6 +25,10 @@ interface itemDAO {
 
     public function addItem($mysqli, $name, $desc, $category, $brand, $price, $fileName, $fileTmpName, $fileSize, $fileError);
 
+    public function updateItem($mysqli, $id, $name, $desc, $category, $brand, $price, $qty, $fileName, $fileTmpName, $fileSize, $fileError);
+
+    public function updateItemNoImage($mysqli, $id, $name, $desc, $category, $brand, $price, $qty);
+
     public function getItemsById($id, $config, $db);
 
     public function placeOrder();

@@ -167,6 +167,79 @@ class itemDAOImpl implements itemDAO {
             
     }
 
+    public function updateItem($mysqli, $id, $name, $desc, $category, $brand, $price, $qty, $fileName, $fileTmpName, $fileSize, $fileError) {
+        // Check if a file was uploaded
+        if ($fileSize > 0 && $fileError === 0) {
+            // Generate a unique file name
+            $uniqueFileName = uniqid('item_image_') . '_' . time() . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
+
+            // Move the uploaded file to the "itemimages" directory
+            $destination_path = getcwd().DIRECTORY_SEPARATOR;
+            $target_path = $destination_path . basename( $fileName);
+            @move_uploaded_file($fileTmpName, $target_path);
+
+            // $uploadPath = './itemimages/' . $uniqueFileName;
+            // move_uploaded_file($fileTmpName, $uploadPath);
+
+            // Use the new file path in the update statement
+            $imageURL = basename( $fileName);
+        } else {
+            // If no new image is provided, keep the existing one
+            $imageURL = ''; // You may want to fetch the existing image URL from the database
+        }
+
+        // Prepare and execute the update statement
+        $stmt = $mysqli->prepare("
+            UPDATE `items`
+            SET
+                `Name` = ?,
+                `Description` = ?,
+                `Category` = ?,
+                `Brand` = ?,
+                `Price` = ?,
+                `ImageURL` = ?,
+                `Qty` = ?
+            WHERE
+                `ItemID` = ?
+        ");
+
+        $stmt->bind_param('ssssssss', $name, $desc, $category, $brand, $price, $imageURL, $qty, $id);
+
+        $success = $stmt->execute();
+
+        $stmt->close();
+
+        return $success;
+    }
+
+    public function updateItemNoImage($mysqli, $id, $name, $desc, $category, $brand, $price, $qty) {
+        $query = "UPDATE `items`
+        SET
+            `Name` = ?,
+            `Description` = ?,
+            `Category` = ?,
+            `Brand` = ?,
+            `Price` = ?,
+            `Qty` = ?
+        WHERE
+            `ItemID` = ?;
+        ";
+
+        $stm = $mysqli -> prepare($query);
+
+        if($stm) {
+            $stm -> bind_param("sssssss",$name, $desc, $category, $brand, $price, $qty, $id);
+            // $check = $stm -> execute($arr);
+
+            if($stm -> execute()) {
+                //success 
+                return 'Success';
+            } else {
+                return 'ERROR '. $mysqli -> error;
+            }
+        }
+    }
+
     public function getItemsById($id, $config, $db){
 
         require_once($config);
