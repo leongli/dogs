@@ -42,7 +42,7 @@ CREATE TABLE `items` (
 -- Dumping data for table `items`
 --
 
-INSERT INTO `items` (`ItemID`, `Name`, `Description`, `Category`, `Brand`, `Price`, `ImageURL`) VALUES
+INSERT INTO `items` (`ItemID`, `Name`, `Description`, `Category`, `Brand`, `Price`, `ImageURL`, `Qty`) VALUES
 (7, 'Nike essentials T-Shirt', 'Black Nike T Shirt, featuring the classic Nike Logo in white. Made with 100% cotton. Perfect for every occasion.', 'Tops', 'Nike', 23, 'backend/itemimages/65810c28ecf207.24067671.jpg', 205),
 (8, 'Nike Athletic T-Shirt', 'Featuring Nike\\\'s slogan &quot;Just Do It!&quot; in a 100% cotton white shirt. Perfect for every occasion.', 'Tops', 'Nike', 21, 'backend/itemimages/65810eaf68afb3.92016855.jpg', 205),
 (9, 'Nike Grey Sweatpants', 'Get Comfy and Cozy this winter with the Nike fleece lined grey sweatpants. Perfect for casual wear.', 'Bottoms', 'Nike', 55, 'backend/itemimages/6581102e3ff339.30782791.jpg', 205),
