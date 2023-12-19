@@ -47,7 +47,8 @@ $data = $dao->getItemsById($id, $config, $db);
                         <div>Price: $<?php echo $item['Price'] ?></div><br>
                         <div>Description: <?php echo $item['Description'] ?></div><br>
                        
-                        <label for="">Qty: </label><input type="number" name="qty" min="1" max="999" value="1">
+                        <label for="">Qty: </label><input type="number" name="qty" min="1" max=<?php echo $item['Qty'] ?> value="1">
+                        <div>Quantity Remaining: <?php echo $item['Qty'] ?></div><br>
                         <input type="hidden" name="id" value="<?php echo $item['ItemID']; ?>">
                         <input type="submit" name="add" value="Add to Cart">
                     </div>

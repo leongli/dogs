@@ -34,7 +34,8 @@ CREATE TABLE `items` (
   `Category` varchar(60) NOT NULL,
   `Brand` varchar(60) NOT NULL,
   `Price` float NOT NULL,
-  `ImageURL` varchar(60) NOT NULL
+  `ImageURL` varchar(60) NOT NULL,
+  `Qty` int(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -42,11 +43,11 @@ CREATE TABLE `items` (
 --
 
 INSERT INTO `items` (`ItemID`, `Name`, `Description`, `Category`, `Brand`, `Price`, `ImageURL`) VALUES
-(1, 'Jonathan Marghetis', 'test', 'test', 'test', 45, ''),
-(2, 'Shirt', 'This is a shirt', 'summer', 'Nike', 89, ''),
-(3, 'White Shirt', 'This is a white shirt.', 'Shirt', 'Nike', 46, 'backend/itemimages/656b2590ed2262.81130387.jpg'),
-(5, 'Black Jeans', 'These are black jeans', 'Pants', 'old navy', 70, 'backend/itemimages/656b27bc541e13.93727413.png'),
-(6, 'Straw Hat', 'A hat ready for anything', 'Hat', 'A', 100, 'backend/itemimages/656b2c71c76d99.11843789.png');
+(1, 'Jonathan Marghetis', 'test', 'test', 'test', 45, '', 205),
+(2, 'Shirt', 'This is a shirt', 'summer', 'Nike', 89, '', 205),
+(3, 'White Shirt', 'This is a white shirt.', 'Shirt', 'Nike', 46, 'backend/itemimages/656b2590ed2262.81130387.jpg', 205),
+(5, 'Black Jeans', 'These are black jeans', 'Pants', 'old navy', 70, 'backend/itemimages/656b27bc541e13.93727413.png', 205),
+(6, 'Straw Hat', 'A hat ready for anything', 'Hat', 'A', 100, 'backend/itemimages/656b2c71c76d99.11843789.png', 205);
 
 -- --------------------------------------------------------
 
