@@ -175,14 +175,14 @@ class itemDAOImpl implements itemDAO {
 
             // Move the uploaded file to the "itemimages" directory
             $destination_path = getcwd().DIRECTORY_SEPARATOR;
-            $target_path = $destination_path . basename( $fileName);
+            $target_path = $destination_path . "backend/itemimages/" . basename( $uniqueFileName);
             @move_uploaded_file($fileTmpName, $target_path);
 
             // $uploadPath = './itemimages/' . $uniqueFileName;
             // move_uploaded_file($fileTmpName, $uploadPath);
 
             // Use the new file path in the update statement
-            $imageURL = basename( $fileName);
+            $imageURL = "backend/itemimages/" . basename( $uniqueFileName);
         } else {
             // If no new image is provided, keep the existing one
             $imageURL = ''; // You may want to fetch the existing image URL from the database
