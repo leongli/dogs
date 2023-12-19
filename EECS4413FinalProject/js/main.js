@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
       if (event.target.tagName.toLowerCase() === "button") {
         // Get the value of the hidden input inside the clicked div
         var value = div.querySelector("input[type=hidden]").value;
+        // Create a button to store the event target
+        var button = event.target;
         // Create a new XMLHttpRequest for making asynchronous requests
         var xhr = new XMLHttpRequest();
         // Configure the request with POST method to the specified URL
@@ -21,10 +23,24 @@ document.addEventListener("DOMContentLoaded", function () {
         );
         // Define the callback function to handle the response
         xhr.onreadystatechange = function () {
-          // Check if the request is complete and successful
-          if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            // Log the response text to the console
-            console.log(this.responseText);
+          // Check if the request is completed
+          if (this.readyState === XMLHttpRequest.DONE) {
+            if (this.status === 200) {
+              // Log the response text to the console
+              console.log(this.responseText);
+              // Change the button text to "Added" temporarily
+              button.textContent = "Added";
+              // Disable the button temporarily to prevent multiple clicks
+              button.disabled = true;
+              // Reset the button text and enable it after 2000 milliseconds (2 seconds)
+              setTimeout(function () {
+                button.textContent = "Quick Add to Cart";
+                button.disabled = false;
+              }, 750);
+            } else {
+              // Handle errors or other statuses here
+              console.error("Error occurred:", this.status, this.statusText);
+            }
           }
         };
         // Send the request with the encoded input value

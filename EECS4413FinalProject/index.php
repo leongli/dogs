@@ -64,43 +64,38 @@ $dao = new itemDAOImpl();
         </div>
         
         <!-- Display each item -->
+        <?php $count = 0 ?>
+        <div class="container-fluid">
+            <div class="row">
         <?php foreach ($data as $item) : ?>
-            <div class="w-75 d-block mx-auto">
-                <a class="text-decoration-none text text-dark"href="itempage.php?id=<?php echo $item['ItemID'] ?>">
-                    <!-- <div>
-                    <hr>
-                    <img src="<?php echo $item['ImageURL'] ?>" alt="Product">
-                    <div><?php echo $item['Name'] ?></div>
-                    <div>Price: $<?php echo $item['Price'] ?></div>
-                    <div><?php echo $item['Category'] ?></div>
-                    <div><?php echo $item['Brand'] ?></div>
-                    <hr>
-                </div> -->
-                    <hr style="clear: both; visibility: hidden;">
-                    <div class="card mb-3 mx-auto">
-                        <div class="row g-0">
-                            <div class="col-md-3">
-                                <img src="<?php echo $item['ImageURL'] ?>" class="rounded-start d-block mx-auto" alt="Product" style="width: 100%; height: 100%; object-fit: cover;">
-                                <!--<img src="<?php echo $item['ImageURL'] ?>" class="mx-auto d-block float-right" alt="Product" style="height: 450px; width:100%;"> style="height: 450px; width:100%;" -->
-                            </div>
-                            <div class="col-md-9">
-                                <div class="card-body">
-                                    <h5 class="card-title"><?php echo $item['Name'] ?></h5>
-                                    <h5 class="card-subtitle">Price: $<?php echo $item['Price'] ?></h5>
-                                    <p class="card-text"><?php echo $item['Category'] ?></p>
-                                    <p class="card-text"><?php echo $item['Brand'] ?></p>
-                                </div>
-                            </div>
+            <div class="col-md-3 mb-3">
+                <a class="text-decoration-none text text-dark" href="itempage.php?id=<?php echo $item['ItemID'] ?>">
+                    <div class="card">
+                        <img src="<?php echo $item['ImageURL'] ?>" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Product">
+                        <div class="card-body">
+                            <h5 class="card-text"><?php echo $item['Name'] ?></h5>
+                            <h5 class="card-text">Price: $<?php echo $item['Price'] ?></h5>
+                            <p><?php echo $item['Category'] ?></p>
+                            <p><?php echo $item['Brand'] ?></p>
                         </div>
                     </div>
-                    <hr style="clear: both; visibility: hidden;">
                 </a>
-                <div class="quick">
-                    <button>Quick Add to Cart</button>
-                    <input type="hidden" name="id" value="<?php echo $item['ItemID']; ?>">
+                <div class="text-center" style="padding-top:10px;"> <!-- Center-align the button -->
+                    <div class="quick">
+                        <button>Quick Add to Cart</button>
+                        <input type="hidden" name="id" value="<?php echo $item['ItemID']; ?>">
+                    </div>
                 </div>
             </div>
+            <?php $count++; ?>
+            <?php if ($count % 4 == 0) : ?>
+                </div><div class="row">
+            <?php endif; ?>
+
         <?php endforeach; ?>
+        
+        </div>
+        </div>
     </section>
 
     <?php include 'footer.php' ?> 

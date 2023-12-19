@@ -27,7 +27,18 @@ $displaycart = $cart->getCart();
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
-
+    <style>
+        .left {
+            width: 30%;
+            float: left;
+            text-align: right;
+        }
+        .right {
+            width: 50%;
+            margin-left: 10px;
+            float:left;
+        }
+    </style>
 </head>
 
 <body style="background-color:#EEEEEE; font-family: 'Open Sans', sans-serif;">
@@ -71,16 +82,18 @@ $displaycart = $cart->getCart();
                 <!-- Total price -->
                 <div class="col-8">
                     <h4><b>Total Price: $<?php echo $totalPrice; ?></b></h4>
-                </div>
-                <div class="col">
-                    <a href="index.php"><button class="btn btn-outline-secondary" type="button">Cancel</button></a>
-                </div>
+                </div><br><br><br>
+                <!-- <hr> -->
                     <!-- User shipping + billing information -->
                     <form action="backend/controller/shoppingcartCon.php" method="post">
-                        <label for="">Shipping Address</label><input type="text" name="ship" value="<?php if(isset($_SESSION['ship'])) {echo $_SESSION['ship'];} ?>" required><br>
-                        <label for="">Billing Address</label><input type="text" name="bill" value="<?php if(isset($_SESSION['bill'])) {echo $_SESSION['ship'];} ?>" required><br>
-                        <label for="">Card #</label><input type="number" name="card" min="1" required><br>
-                        <input type="submit" name="order" value="Place Order" class="btn btn-outline-secondary" style="width:50%">
+                        <h3 class="d-block mx-auto px-5">Shipping & Payment information</h3>
+                        <label for="" class="left">Shipping Address</label><input class="right" type="text" name="ship" value="<?php if(isset($_SESSION['ship'])) {echo $_SESSION['ship'];} ?>" required><br>
+                        <label for="" class="left">Billing Address</label><input class="right" type="text" name="bill" value="<?php if(isset($_SESSION['bill'])) {echo $_SESSION['ship'];} ?>" required><br>
+                        <label for="" class="left">Card #</label><input class="right" type="number" name="card" min="1" required><br><br><br>
+                        <div style="float:right;">
+                            <input type="submit" name="order" value="Place Order" class="btn btn-outline-secondary">
+                            <a href="index.php"><button class="btn btn-outline-secondary" type="button">Cancel</button></a>
+                        </div>
                     </form>
             </div>
         <!-- Display default message for an empty cart -->
