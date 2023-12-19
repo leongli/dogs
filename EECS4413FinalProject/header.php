@@ -46,8 +46,9 @@
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                             <li><input type="submit" class="dropdown-item" name="search" value="Nike"></li>
-                            <li><input type="submit" class="dropdown-item" name="search" value="Old Navy"></li>
-                            <li><input type="submit" class="dropdown-item" name="search" value="A"></li>
+                            <li><input type="submit" class="dropdown-item" name="search" value="Adidas"></li>
+                            <li><input type="submit" class="dropdown-item" name="search" value="Reebok"></li>
+                            <li><input type="submit" class="dropdown-item" name="search" value="Jordan"></li>
                         </ul>
                     </form>  
                 </li>

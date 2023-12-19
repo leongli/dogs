@@ -75,17 +75,22 @@ if (filter_has_var(INPUT_POST, 'submit')) { //checking for type post with name s
                         <label for="" class="col-sm-3 col-form-label text-left">Category: </label>
                         <div class="col-sm-9">
                             <select name="category" id="cars" class="w-100 h-100">
-                            <option value="Shirt">Shirt</option>
-                            <option value="Pants">Pants</option>
-                            <option value="Sweater">Sweater</option>
-                            <option value="Hat">Hat</option>
+                            <option value="Tops">Tops</option>
+                            <option value="Bottoms">Bottoms</option>
+                            <option value="Accessories">Accessories</option>
                             </select>
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label for="" class="col-sm-3 col-form-label text-left">Brand: </label>
                         <div class="col-sm-9">
-                            <input type="text" name="brand" class="w-100 h-100">
+                            
+                            <select name="brand" id="cars" class="w-100 h-100">
+                            <option value="Nike">Nike</option>
+                            <option value="Adidas">Adidas</option>
+                            <option value="Reebok">Reebok</option>
+                            <option value="Jordan">Jordan</option>
+                            </select>
                         </div>
                     </div>
                     
