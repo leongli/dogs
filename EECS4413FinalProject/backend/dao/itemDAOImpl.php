@@ -39,6 +39,36 @@ class itemDAOImpl implements itemDAO {
 
     }
 
+    public function getItemsSorted($mysqli, $sortKey, $searchKey){
+        
+        if($searchKey==null){
+            $query = "SELECT * FROM items";
+        }else{
+            $newkey = $mysqli -> real_escape_string(test_input($searchKey));
+            $query = "SELECT * FROM items WHERE `Name` LIKE '%" . $newkey . "%' OR Category LIKE '%" . $newkey . "%' OR Brand LIKE '%" . $newkey . "%'";
+        }
+        
+       
+        $sort = $mysqli -> real_escape_string(test_input($sortKey));
+        
+        if($sort == "Price Ascending"){
+            $query .=" ORDER BY price ASC";
+        }else if ($sort == "Price Descending"){
+            $query.=" ORDER BY price DESC";
+        }else if ($sort == "Brand Ascending"){
+            $query.=" ORDER BY Brand ASC";
+        }else if ($sort == "Brand Descending"){
+            $query.=" ORDER BY Brand DESC";
+        }else if ($sort == "Category Ascending"){
+            $query.=" ORDER BY Category ASC";
+        }else if ($sort == "Category Descending"){
+            $query.=" ORDER BY Category DESC";
+        }
+        $result = $mysqli -> query($query);
+        return $result -> fetch_all(MYSQLI_ASSOC);
+    }
+
+
     public function searchItems($mysqli, $key){
 
         $newkey = $mysqli -> real_escape_string(test_input($key));

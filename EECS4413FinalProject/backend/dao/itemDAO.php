@@ -13,6 +13,8 @@ interface itemDAO {
 
     public function getAllItems($mysqli);
 
+    public function getItemsSorted($mysqli, $sort, $searchKey);
+
     public function searchItems($mysqli, $key);
 
     public function updateCartItem($id, $newQty);

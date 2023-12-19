@@ -5,23 +5,14 @@ require('backend/dao/itemDAOImpl.php');
 
 $dao = new itemDAOImpl();
 
-if (!isset($_GET['search']) || $_GET['search'] == '') {
-    $data = $dao->getAllItems($mysqli);
-    // if(!isset($_GET['sort']));
-    // else if($_GET['sort'] == 'Price Ascending'){ //price ascending
-        
-    // }else if($_GET['sort'] == 'Price Descending'){    //price descending 
-
-    // }else if($_GET['sort'] == 'Brand Ascending'){    //brand ascending
-
-    // }else if($_GET['sort'] == 'Brand Descending'){    //brand descending 
-
-    // }
-} else {
-    $data = $dao->searchItems($mysqli, $_GET['search']);
+ if (!isset($_GET['search']) || $_GET['search'] == '' && (!isset($_GET['sort']))) {
+    if(!isset($_GET['sort'])) $data = $dao->getAllItems($mysqli);
+    else $data = $dao->getItemsSorted($mysqli, $_GET['sort'],'');
+} else{
+    if(!isset($_GET['sort'])) $data = $dao->searchItems($mysqli, $_GET['search']);
+    else $data = $dao->getItemsSorted($mysqli, $_GET['sort'],$_GET['search']);
     // print_r($data);
 }
-
 
 
 
@@ -52,19 +43,25 @@ if (!isset($_GET['search']) || $_GET['search'] == '') {
                 <?php }?>
             </div>
             <div class="col col-sm-1">
+            
                 <!-- sorting dropdown menu -->
                 <form action="" method="get" class="dropdown">
                     <label for="">Sort By:</label>
                     <button class="btn btn-default dropdown-toggle btn-outline-secondary" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    --
+                    <?php if(isset($_GET['sort'])) {echo $_GET['sort']; }
+                    else {echo "--" ;}?>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
                         <li><input type="submit" class="dropdown-item" name="sort" value="Price Ascending"></li>
                         <li><input type="submit" class="dropdown-item" name="sort" value="Price Descending"></li>
                         <li><input type="submit" class="dropdown-item" name="sort" value="Brand Ascending"></li>
                         <li><input type="submit" class="dropdown-item" name="sort" value="Brand Descending"></li>
+                        <li><input type="submit" class="dropdown-item" name="sort" value="Category Ascending"></li>
+                        <li><input type="submit" class="dropdown-item" name="sort" value="Category Descending"></li>
                     </ul>
-                
+                    <?php if(isset($_GET['search'])) {?>
+                    <input type="hidden" name="search" value="<?php echo $_GET['search'] ?>">
+                    <?php } ?>
                 </form> 
             </div>
         </div>
