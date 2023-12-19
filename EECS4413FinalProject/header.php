@@ -74,7 +74,7 @@
             <?php
     if (access('ADMIN', false)) : ?>
 
-        <li><a class="dropdown-item" href="profile.php">View Admin Profile</a></li>
+        <li><a class="dropdown-item" href="adminview.php">View Admin Profile</a></li>
         <li><a class="dropdown-item" href="backend/adminpage.php">Create new item</a></li>
         <li><a class="dropdown-item" href="logout.php">Log out</a></li>
 
