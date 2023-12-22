@@ -89,6 +89,7 @@
         if (empty($_POST["billingaddress"])) {
             // $bAddErr = "Billing address is required";
             // $error = true;
+            $arr['billingaddress'] = "";
         } else {
             $arr['billingaddress'] = $mysqli -> real_escape_string(test_input($_POST['billingaddress']));
 
@@ -103,6 +104,7 @@
         if (empty($_POST["shippingaddress"])) {
             // $sAddErr = "Shipping address is required";
             // $error = true;
+            $arr['shippingaddress'] = "";
         } else {
             $arr['shippingaddress'] = $mysqli -> real_escape_string(test_input($_POST['shippingaddress']));
 

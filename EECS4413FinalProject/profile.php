@@ -46,10 +46,10 @@ $itemResult = $resultItems->fetch_all(MYSQLI_ASSOC);
             </b>
 
             Past Orders:
-            <hr>
+            <hr><?php $i = 0?>
             <!-- Display key details about each order -->
             <?php foreach ($orderResult as $order) : ?>
-                <?php $i = 0?>
+                
                 <?php $i++;?>
                 <a class="text-decoration-none text-dark"href="orderSummary.php?order=<?php echo $order['OrderID']; ?>">
                     <div>

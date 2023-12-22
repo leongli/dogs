@@ -1,6 +1,6 @@
 <?php
-require('backend/config/config.php');
-require('backend/config/db.php');
+require('config/config.php');
+require('config/db.php');
 require('backend/dao/itemDAOImpl.php');
 
 if (isset($_GET['id'])) {
